@@ -7,18 +7,16 @@ jobs:
   # This workflow contains a single job called "build"
   TestUpdater:
     # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+    runs-on: windows-2022
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
 
       - name: Build Module
         run: |
-          for f in $( git diff --name-only 006e262c11c06e13303de21dfb4edb56fe3ef2cf )
-          do
-            echo $f
-          done
+          $FilesChanged = git diff --name-only 006e262c11c06e13303de21dfb4edb56fe3ef2cf
+          $FilesChanged
 
 
