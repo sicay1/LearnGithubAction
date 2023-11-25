@@ -1,0 +1,28 @@
+name: GameUpdater
+on:
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      - name: Build Module
+        shell: pwsh
+        run: |
+          $FilesChanged = git diff --name-only 006e262c11c06e13303de21dfb4edb56fe3ef2cf
+          ForEach ($file in $FilesChanged) {
+            $fileMD5 = Get-FileHash $file -Algorithm MD5
+            $fileMD5.Hash + " " + $ fileMD5.Path
+            }
+        
+      - name: Run a one-line script
+        run: echo Hello, world!
+
