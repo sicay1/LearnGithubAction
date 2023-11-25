@@ -15,10 +15,10 @@ jobs:
       - uses: actions/checkout@v3
 
       - name: Build Module
-        shell: pwsh
         run: |
-          $FilesChanged = git diff --name-only 006e262c11c06e13303de21dfb4edb56fe3ef2cf
-        
-      - name: Run a one-line script
-        run: echo Hello, world!
+          for f in $(git diff --name-only 006e262c11c06e13303de21dfb4edb56fe3ef2cf)
+          do
+            echo $f
+          done
+
 
