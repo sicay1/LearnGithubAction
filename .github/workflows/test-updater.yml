@@ -16,7 +16,7 @@ jobs:
 
       - name: Build Module
         run: |
-          for f in $(git diff --name-only 006e262c11c06e13303de21dfb4edb56fe3ef2cf)
+          for f in $( git diff --name-only 006e262c11c06e13303de21dfb4edb56fe3ef2cf )
           do
             echo $f
           done
