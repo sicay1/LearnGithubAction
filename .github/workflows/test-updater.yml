@@ -22,7 +22,12 @@ jobs:
           Get-Location
           $FileExist = Test-Path latest_sha.txt
           echo "FileExist la $FileExist"
-          if ($FileExist) { Add-Content -Path $env:GITHUB_ENV -Value "curr_sha=$(Get-Content latest_sha.txt)" } 
+          
+          if ($FileExist) { 
+            $sha = Get-Content latest_sha.txt
+            echo "noi dung file la $sha"
+            Add-Content -Path $env:GITHUB_ENV -Value "curr_sha=$sha" 
+          } 
           echo "curr_sha la ${{ env.curr_sha }}"
           $latestSHA = git rev-parse --short HEAD
           echo "latestSHA la $latestSHA"
