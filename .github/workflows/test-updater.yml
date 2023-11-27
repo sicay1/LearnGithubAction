@@ -1,6 +1,4 @@
 name: GameUpdater
-env:
-  curr_sha: 0
 on:
   workflow_dispatch:
 
