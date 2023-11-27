@@ -20,7 +20,9 @@ jobs:
 #        working-directory: ..
         run: |
           Get-Location
-          if (Test-Path latest_sha.txt) { echo "curr_sha=$(Get-Content latest_sha.txt)" >> $GITHUB_ENV } 
+          $FileExist = Test-Path latest_sha.txt
+          echo "FileExist la $FileExist"
+          if ($FileExist) { echo "curr_sha=$(Get-Content latest_sha.txt)" >> $GITHUB_ENV } 
           echo "curr_sha la ${{ env.curr_sha }}"
           $latestSHA = git rev-parse --short HEAD
           echo "latestSHA la $latestSHA"
