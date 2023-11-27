@@ -19,7 +19,7 @@ jobs:
       - name: Build Module
         run: |
           Get-Location
-          $FilesChanged = git diff --name-only 006e262c11c06e13303de21dfb4edb56fe3ef2cf
+          $FilesChanged = git diff --name-only 59668e6
           $FilesChanged
 
 
