@@ -22,7 +22,7 @@ jobs:
 #        working-directory: ..
         run: |
           Get-Location
-          if (Test-Path latest_sha.txt) { echo "$(Get-Content latest_sha.txt) = " ${{ env.curr_sha }} } else { echo "$(git rev-list --max-parents=0 HEAD) = " ${{ env.curr_sha }} }
+          if (Test-Path latest_sha.txt) { echo "curr_sha=$(Get-Content latest_sha.txt)" >> $GITHUB_ENV } 
           echo "curr_sha la ${{ env.curr_sha }}"
           $latestSHA = git rev-parse --short HEAD
           echo "latestSHA la $latestSHA"
@@ -33,7 +33,7 @@ jobs:
 # $fileExist = Test-Path latest_sha.txt
 # echo "fileExist la $fileExist"
 
-#
+#else { echo "$(git rev-list --max-parents=0 HEAD) = " ${{ env.curr_sha }} }
 # echo  "the var was detected to be test = " ${{env.MYVAR}}
 #        ${{ env.minRamGS }}
 
