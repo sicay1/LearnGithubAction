@@ -1,25 +1,43 @@
 name: GameUpdater
+env:
+  curr_sha: 0
 on:
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  TestUpdater:
-    # The type of runner that the job will run on
+  checkout:
+    name: build files.xml for updater
     runs-on: tony-vm
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
+        name: checkout
         with:
           fetch-depth: 0
-
-      - name: Build Module
+  getchanges:
+    name: get all changed file from Updater
+    runs-on: tony-vm
+    needs: [checkout]
+    steps:
+      - name: get changes
+        working-directory: ..
         run: |
-          Get-Location
-          $FilesChanged = git diff --name-only 59668e6
+          $shafile = Test-Path "./latest_sha.txt"
+          $shafile ? echo "curr_sha=$(Get-Content .\README.md)" >> $GITHUB_ENV : echo "curr_sha=$(git rev-list --max-parents=0 HEAD)" >> $GITHUB_ENV
+          echo "curr_sha la ${{ env.curr_sha }}"
+          $latestSHA = git rev-parse --short HEAD
+          $FilesChanged = git diff --name-only $latestSHA
           $FilesChanged
 
+#          Get-Location
+#
+#        ${{ env.minRamGS }}
 
+  final:
+    name: update SHA for latest commit for next run
+    runs-on: tony-vm
+    needs: [getchanges]
+    steps:
+      - name: update SHA
+        working-directory: ..
+        run: ${{ env.TestUpdater.steps.latestSHA }} > latest_sha.txt
+    
