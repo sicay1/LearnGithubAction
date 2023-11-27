@@ -21,7 +21,7 @@ jobs:
       - name: get changes
         working-directory: ..
         run: |
-          if (Test-Path "./latest_sha.txt) { echo "curr_sha=$(Get-Content .\README.md)" >> $GITHUB_ENV } else { echo "curr_sha=$(git rev-list --max-parents=0 HEAD)" >> $GITHUB_ENV }
+          if (Test-Path ./latest_sha.txt) { echo "curr_sha=$(Get-Content .\README.md)" >> $GITHUB_ENV } else { echo "curr_sha=$(git rev-list --max-parents=0 HEAD)" >> $GITHUB_ENV }
           echo "curr_sha la ${{ env.curr_sha }}"
           $latestSHA = git rev-parse --short HEAD
           $FilesChanged = git diff --name-only $latestSHA
