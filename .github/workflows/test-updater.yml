@@ -13,26 +13,26 @@ jobs:
   #         fetch-depth: 0
   getchanges:
     name: get all changed file from Updater
-    runs-on: tony-vm
-    # needs: [checkout]
+    runs-on: tony_uvm
     steps:
       - name: get changes
 #        working-directory: ..
-        run: |
-          Get-Location
-          $FileExist = Test-Path latest_sha.txt
-          echo "FileExist la $FileExist"
+        run: echo ${{ github.ref }}
+        # run: |
+        #   Get-Location
+        #   $FileExist = Test-Path latest_sha.txt
+        #   echo "FileExist la $FileExist"
           
-          if ($FileExist) { 
-            $sha = Get-Content latest_sha.txt
-            echo "noi dung file la $sha"
-            Add-Content -Path $env:GITHUB_ENV -Value "curr_sha=$sha" 
-          } 
-          echo "curr_sha la ${{ env.curr_sha }}"
-          $latestSHA = git rev-parse --short HEAD
-          echo "latestSHA la $latestSHA"
-          $FilesChanged = git diff --name-only $latestSHA
-          echo "FilesChanged la $FilesChanged"
+        #   if ($FileExist) { 
+        #     $sha = Get-Content latest_sha.txt
+        #     echo "noi dung file la $sha"
+        #     Add-Content -Path $env:GITHUB_ENV -Value "curr_sha=$sha" 
+        #   } 
+        #   echo "curr_sha la ${{ env.curr_sha }}"
+        #   $latestSHA = git rev-parse --short HEAD
+        #   echo "latestSHA la $latestSHA"
+        #   $FilesChanged = git diff --name-only $latestSHA
+        #   echo "FilesChanged la $FilesChanged"
 
 # for debug
 # $fileExist = Test-Path latest_sha.txt
