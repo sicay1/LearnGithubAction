@@ -13,7 +13,7 @@ jobs:
   #         fetch-depth: 0
   getchanges:
     name: get all changed file from Updater
-    runs-on: tony_uvm
+    runs-on: ubuntu_latest
     steps:
       - name: get changes
 #        working-directory: ..
