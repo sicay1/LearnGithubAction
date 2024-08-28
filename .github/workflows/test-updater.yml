@@ -3,21 +3,20 @@ on:
   workflow_dispatch:
 
 jobs:
-  # checkout:
-  #   name: build files.xml for updater
-  #   runs-on: tony-vm
-  #   steps:
-  #     - uses: actions/checkout@v3
-  #       name: checkout
-  #       with:
-  #         fetch-depth: 0
+  checkout:
+    name: checkout repo
+    runs-on: tonyuvm
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.ref_name }}
   getchanges:
     name: get all changed file from Updater
     runs-on: tonyuvm
     steps:
       - name: get changes
 #        working-directory: ..
-        run: echo ${{ github.ref }}
+        run: echo ${{ github.ref_name }}
         # run: |
         #   Get-Location
         #   $FileExist = Test-Path latest_sha.txt
